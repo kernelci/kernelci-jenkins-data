@@ -12,6 +12,13 @@ for host in \
     ssh $host sudo "sh -c 'docker system prune -f && shutdown -r now'" &
 done
 
-ssh kernelci.org 'cd kernelci-jenkins && docker-compose restart'
+ssh kernelci.org '\
+cd kernelci-jenkins && \
+git remote update && \
+git checkout origin/kernelci.org && \
+cd data && \
+git pull --ff-only && \
+cd - && \
+docker-compose restart'
 
 exit 0
