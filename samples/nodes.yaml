@@ -1,0 +1,169 @@
+# Samples nodes.yaml file to set up a full KernelCI Jenkins pipeline
+
+jenkins:
+  nodes:
+
+# -----------------------------------------------------------------------------
+# Main nodes
+
+  - permanent:
+      name: "0 - monitor"
+      labelString: "docker monitor"
+      launcher:
+        ssh:
+          credentialsId: "kernelci-jenkins-private-key"
+          host: "some-host"
+          launchTimeoutSeconds: 210
+          maxNumRetries: 10
+          retryWaitTime: 15
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      mode: EXCLUSIVE
+      numExecutors: 2
+      remoteFS: "/path/to/workspace/monitor/"
+      retentionStrategy: "always"
+
+  - permanent:
+      name: "1 - trigger"
+      labelString: "docker build-trigger"
+      launcher:
+        ssh:
+          credentialsId: "kernelci-jenkins-private-key"
+          host: "some-host"
+          launchTimeoutSeconds: 210
+          maxNumRetries: 10
+          retryWaitTime: 15
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      mode: EXCLUSIVE
+      numExecutors: 4
+      remoteFS: "/path/to/workspace/build-trigger/"
+      retentionStrategy: "always"
+
+  - permanent:
+      name: "2 - runner"
+      labelString: "docker test-runner"
+      launcher:
+        ssh:
+          credentialsId: "kernelci-jenkins-private-key"
+          host: "some-host"
+          launchTimeoutSeconds: 210
+          maxNumRetries: 10
+          retryWaitTime: 15
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      mode: EXCLUSIVE
+      numExecutors: 12
+      remoteFS: "/path/to/workspace/test-runner/"
+      retentionStrategy: "always"
+
+  - permanent:
+      name: "3 - complete"
+      labelString: "build-complete"
+      launcher:
+        ssh:
+          credentialsId: "kernelci-jenkins-private-key"
+          host: "some-host"
+          launchTimeoutSeconds: 210
+          maxNumRetries: 10
+          retryWaitTime: 15
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      mode: EXCLUSIVE
+      numExecutors: 4
+      remoteFS: "/path/to/workspace/build-complete/"
+      retentionStrategy: "always"
+
+  - permanent:
+      name: "4 - rootfs trigger"
+      labelString: "docker rootfs-trigger"
+      launcher:
+        ssh:
+          credentialsId: "kernelci-jenkins-private-key"
+          host: "some-host"
+          launchTimeoutSeconds: 210
+          maxNumRetries: 10
+          retryWaitTime: 15
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      mode: EXCLUSIVE
+      numExecutors: 2
+      remoteFS: "/path/to/workspace/rootfs-trigger/"
+      retentionStrategy: "always"
+
+
+# -----------------------------------------------------------------------------
+# Static builders
+
+  - permanent:
+      name: "bisection"
+      labelString: "docker bisection"
+      launcher:
+        ssh:
+          credentialsId: "kernelci-jenkins-private-key"
+          host: "some-host"
+          launchTimeoutSeconds: 210
+          maxNumRetries: 10
+          retryWaitTime: 15
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      mode: EXCLUSIVE
+      numExecutors: 4
+      remoteFS: "/path/to/workspace/bisection/"
+      retentionStrategy: "always"
+
+  - permanent:
+      name: "rootfs"
+      labelString: "docker debos"
+      launcher:
+        ssh:
+          credentialsId: "kernelci-jenkins-private-key"
+          host: "some-host"
+          launchTimeoutSeconds: 210
+          maxNumRetries: 10
+          retryWaitTime: 15
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      mode: EXCLUSIVE
+      numExecutors: 5
+      remoteFS: "/path/to/workspace/rootfs-builder/"
+      retentionStrategy: "always"
+
+
+# -----------------------------------------------------------------------------
+# Kubernetes
+
+  - permanent:
+      name: "k8s"
+      labelString: "docker k8s k8s-medium"
+      launcher:
+        ssh:
+          credentialsId: "kernelci-jenkins-private-key"
+          host: "some-host"
+          launchTimeoutSeconds: 210
+          maxNumRetries: 10
+          retryWaitTime: 15
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      nodeProperties:
+      - envVars:
+          env:
+          - key: "K8S_CONTEXT"
+            value: "kubectl-context-name"
+      numExecutors: 24
+      remoteFS: "/path/to/workspace/k8s/"
+      retentionStrategy: "always"
+
+  - permanent:
+      name: "k8s big"
+      labelString: "docker k8s k8s-medium k8s-big"
+      launcher:
+        ssh:
+          credentialsId: "kernelci-jenkins-private-key"
+          host: "some-host"
+          launchTimeoutSeconds: 210
+          maxNumRetries: 10
+          retryWaitTime: 15
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      nodeProperties:
+      - envVars:
+          env:
+          - key: "K8S_CONTEXT"
+            value: "kubectl-context-name"
+          - key: "K8S_CPU_LIMIT"
+            value: 32
+      numExecutors: 4
+      remoteFS: "/path/to/workspace/k8s-big/"
+      retentionStrategy: "always"
