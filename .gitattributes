@@ -3,3 +3,4 @@
 README.md !filter !diff
 *.yaml filter=git-crypt diff=git-crypt
 env filter=git-crypt diff=git-crypt
+samples/* !filter !diff
