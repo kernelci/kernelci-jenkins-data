@@ -8,7 +8,7 @@ for ctx in \
     "gke_android-kernelci-external_europe-west4-c_kci-eu-west4" \
     ; do
     echo "[$ctx]"
-    ssh kernelci-jenkins-europe.westeurope.cloudapp.azure.com \
+    ssh kernelci-jenkins-usa.westus2.cloudapp.azure.com \
         sudo su buildslave "/bin/sh -c '\
         kubectl --context $ctx \
         delete pod --field-selector=status.phase!=Running'"
