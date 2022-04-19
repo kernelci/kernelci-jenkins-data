@@ -3,7 +3,6 @@
 set -e
 
 for ctx in \
-    "aks-kci-france-central" \
     "aks-kci-uk-south" \
     "gke_android-kernelci-external_europe-west1-d_kci-eu-west1" \
     "gke_android-kernelci-external_europe-west4-c_kci-eu-west4" \
