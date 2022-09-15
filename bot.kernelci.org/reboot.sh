@@ -30,7 +30,6 @@ done
 for host in \
     "kernelci1.eastus.cloudapp.azure.com" \
     "kernelci6.westus2.cloudapp.azure.com" \
-    "kernelci-jenkins-europe.westeurope.cloudapp.azure.com" \
     "kernelci-jenkins-usa.westus2.cloudapp.azure.com" \
     ; do
     echo "[$host]"
