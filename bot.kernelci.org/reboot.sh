@@ -28,9 +28,9 @@ for ctx in \
 done
 
 for host in \
-    "kernelci1.eastus.cloudapp.azure.com" \
-    "kernelci6.westus2.cloudapp.azure.com" \
-    "kernelci-jenkins-usa.westus2.cloudapp.azure.com" \
+    "kernelci-prod-jenkins-runner-1.westus3.cloudapp.azure.com" \
+    "kernelci-prod-jenkins-runner-2.westus3.cloudapp.azure.com" \
+    "kernelci-prod-jenkins-runner-3.westus3.cloudapp.azure.com" \
     ; do
     echo "[$host]"
     ssh $host sudo "sh -c 'docker system prune -f && shutdown -r now'" &
